@@ -1,0 +1,43 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainScreen.uss?fileID=7433441132597879392&amp;guid=e10208f584771f54d8aa80ccb8efe13a&amp;type=3#MainScreen" />
+    <ui:VisualElement name="mainScreen" class="main-screen amoled" style="min-width: auto; min-height: auto;">
+        <ui:VisualElement name="leftMenu" class="left-menu" style="padding-left: 0; align-content: flex-start; align-items: flex-end; flex-wrap: nowrap; flex-direction: column;">
+            <ui:VisualElement name="tabs" class="tabs" style="align-self: stretch; align-items: flex-end;">
+                <ui:Button name="dayTabButton" text="Day" class="tab-button selected" style="margin-right: 0; font-size: 20px;" />
+                <ui:Button name="weekTabButton" text="Week" class="tab-button" style="margin-right: 0; font-size: 20px;" />
+                <ui:Button name="monthTabButton" text="Month" class="tab-button" style="margin-right: 0; font-size: 20%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="options" class="tabs" style="align-self: stretch; align-items: flex-end;">
+                <ui:Button name="dayTabButton" text="Day" class="tab-button" style="margin-right: 0; font-size: 20px;" />
+                <ui:Button name="weekTabButton" text="Week" class="tab-button" style="margin-right: 0; font-size: 20px;" />
+                <ui:Button name="monthTabButton" text="Month" class="tab-button" style="margin-right: 0; font-size: 20px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="content" class="content">
+            <ui:VisualElement name="topBar" class="top-bar" style="flex-direction: row-reverse; align-content: auto; justify-content: center;">
+                <ui:Label name="modeLabel" text="Day" class="mode-label adjust-button unity-button" style="position: relative; flex-basis: auto; flex-direction: column-reverse; width: 50%; -unity-text-align: middle-center; top: auto; left: auto; align-self: center; align-items: center; min-width: auto; justify-content: flex-start;" />
+                <ui:Button name="exitButton" text="X" tooltip="Exit" class="exit-button" style="position: absolute; right: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ringStack" class="ring-stack" style="justify-content: space-around; align-content: flex-start;">
+                <ui:VisualElement name="adjustTop" class="adjust-row minus-row">
+                    <ui:Button name="sub1MinButton" text="-1m" class="adjust-button minus" style="font-size: 20%; -unity-font-style: bold;" />
+                    <ui:Button name="sub15MinButton" text="-15m" class="adjust-button minus" style="font-size: 20%; -unity-font-style: bold;" />
+                    <ui:Button name="sub30MinButton" text="-30m" class="adjust-button minus" style="font-size: 20%;" />
+                    <ui:Button name="sub1HrButton" text="-1h" class="adjust-button minus" style="font-size: 20%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="progressRing" class="progress-ring" style="width: 200px; height: 200px; background-image: none;">
+                    <ui:VisualElement name="timeDisplay" class="time-display">
+                        <ui:Label name="timeLabel" text="01:15 / 02:00" class="time-label" style="-unity-slice-type: sliced;" />
+                    </ui:VisualElement>
+                    <DonutRing inner-empty-percent="0.78" value="-0.03" clockwise="true" rounded-caps="false" start-angle="-90" name="ring" style="position: absolute; width: 100%; height: 100%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="adjustBottom" class="adjust-row plus-row">
+                    <ui:Button name="add1MinButton" text="+1m" class="adjust-button plus" style="font-size: 20%;" />
+                    <ui:Button name="add15MinButton" text="+15m" class="adjust-button plus" style="-unity-font-style: bold; font-size: 20%;" />
+                    <ui:Button name="add30MinButton" text="+30m" class="adjust-button plus" style="font-size: 20%;" />
+                    <ui:Button name="add1HrButton" text="+1h" class="adjust-button plus" style="font-size: 20%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
