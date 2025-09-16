@@ -23,6 +23,14 @@ public class TimerController : MonoBehaviour
 
         screenControler.TimeAdjusted += AdjustTime;
         screenControler.ExitRequested += Exit;
+        screenControler.ResetRequested += ResetProgress;
+    }
+
+    private void OnDestroy()
+    {
+        screenControler.TimeAdjusted -= AdjustTime;
+        screenControler.ExitRequested -= Exit;
+        screenControler.ResetRequested -= ResetProgress;
     }
 
     void Update()
@@ -30,7 +38,6 @@ public class TimerController : MonoBehaviour
         if (!running) return; 
         elapsed += Time.deltaTime;
 
-        TimeSpan t = System.TimeSpan.FromSeconds(elapsed);
         screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress()); 
 
     }
@@ -71,5 +78,11 @@ public class TimerController : MonoBehaviour
         print("test");
         Application.Quit();
     }
-    
+
+    private void ResetProgress()
+    {
+        elapsed = 0;
+        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress());
+    }
+
 }

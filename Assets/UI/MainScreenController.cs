@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -20,10 +21,11 @@ public class MainScreenController : MonoBehaviour
     public event Action<string> TabSelected;
     public event Action<int> TimeAdjusted;
     public event Action SettingsOpened;
-    public event Action ExitRequested;
+    public event Action ExitRequested, ResetRequested;
 
     // UI refs
     private Button dayTabButton, weekTabButton, monthTabButton;
+    private Button reset;
     private Label modeLabel, timeLabel;
     private Button settingsButton, exitButton;
 
@@ -65,6 +67,9 @@ public class MainScreenController : MonoBehaviour
         add30MinButton = root.Q<Button>("add30MinButton");
         add1HrButton = root.Q<Button>("add1HrButton");
 
+        //settings buttons
+        reset = root.Q<Button>("Reset");
+
         //ring
         ring = root.Q<DonutRing>("ring");
 
@@ -86,8 +91,13 @@ public class MainScreenController : MonoBehaviour
         if (add30MinButton != null) add30MinButton.clicked += OnAdd30Min;
         if (add1HrButton != null) add1HrButton.clicked += OnAdd1Hr;
 
+        if (reset != null) reset.clicked += OnReset;
+
         // Default selection
         SetActiveTab(dayTabButton, "Day");
+
+        //settings buttons
+
     }
 
     private void OnDisable()
@@ -147,6 +157,9 @@ public class MainScreenController : MonoBehaviour
     private void OnAdd15Min() => TimeAdjusted?.Invoke(+15);
     private void OnAdd30Min() => TimeAdjusted?.Invoke(+30);
     private void OnAdd1Hr() => TimeAdjusted?.Invoke(+60);
+
+    private void OnReset() => ResetRequested?.Invoke();
+
 
     private void OnTabClicked(Button button, string label)
     {
