@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -19,14 +20,17 @@ public class TimerController : MonoBehaviour
     private void Start()
     {
         SetGoal(goalHours, goalMinutes);
+
+        screenControler.TimeAdjusted += AdjustTime;
     }
 
     void Update()
     {
-        if (!running) return;
+        if (!running) return; 
         elapsed += Time.deltaTime;
 
-        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours}:{goalMinutes}", GetProgress());
+        TimeSpan t = System.TimeSpan.FromSeconds(elapsed);
+        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress()); 
 
     }
 
@@ -50,5 +54,14 @@ public class TimerController : MonoBehaviour
         // Hours can exceed 24, so use TotalHours for HH field
         int hours = (int)ts.TotalHours;
         return $"{hours:00}:{ts.Minutes:00}";
+    }
+
+    private void AdjustTime(int time) //attached to ui events will adjust timer
+    {
+        elapsed += (time * 60);
+        if(elapsed < 0)
+        {
+            elapsed = 0;
+        }
     }
 }

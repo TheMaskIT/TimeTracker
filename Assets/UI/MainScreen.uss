@@ -129,6 +129,8 @@
     background-color: var(--panel-2);
     color: var(--text);
     width: 25%;
+    font-size: 100%;
+    -unity-font-style: bold;
 }
 
 .adjust-button.plus {
