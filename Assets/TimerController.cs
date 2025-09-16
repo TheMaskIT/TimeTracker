@@ -22,6 +22,7 @@ public class TimerController : MonoBehaviour
         SetGoal(goalHours, goalMinutes);
 
         screenControler.TimeAdjusted += AdjustTime;
+        screenControler.ExitRequested += Exit;
     }
 
     void Update()
@@ -64,4 +65,11 @@ public class TimerController : MonoBehaviour
             elapsed = 0;
         }
     }
+
+    private void Exit()
+    {
+        print("test");
+        Application.Quit();
+    }
+    
 }

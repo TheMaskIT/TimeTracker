@@ -354,11 +354,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8fcd83d7311924da83b2160600cfdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  goalHours: 1
+  goalHours: 6
   goalMinutes: 10
   elapsed: 0
   goal: 0
-  running: 0
+  running: 1
   screenControler: {fileID: 228682937}
 --- !u!4 &603633851
 Transform:
