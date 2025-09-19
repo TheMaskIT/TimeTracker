@@ -18,6 +18,8 @@ public class TimerController : MonoBehaviour
     public MainScreenController screenControler;
     public SetGoalModalController settingsMenu;
 
+    public string state = "Running";
+
     private void Start()
     {
         //load data
@@ -34,6 +36,7 @@ public class TimerController : MonoBehaviour
         screenControler.TimeAdjusted += AdjustTime;
         screenControler.ExitRequested += Exit;
         screenControler.ResetRequested += ResetProgress;
+        screenControler.ActionButtonCliked += StateChange;
 
         settingsMenu.Confirmed += SetGoal;
 
@@ -43,6 +46,22 @@ public class TimerController : MonoBehaviour
             elapsed = 0;
             PlayerPrefs.SetInt("WasDate", day);
         }
+    }
+
+    private void StateChange()
+    {
+        if(state == "Running")
+        {
+            state = "Stopped";
+            running = false;  
+        }
+        else
+        {
+            state = "Running";
+            running = true;
+        }
+
+        screenControler.SetState(state);
     }
 
     private void OnDestroy()
@@ -81,6 +100,8 @@ public class TimerController : MonoBehaviour
         //save
         PlayerPrefs.SetInt("goalHours", goalHours);
         PlayerPrefs.SetInt("goalMinutes", goalMinutes);
+
+        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress());
 
     }
 

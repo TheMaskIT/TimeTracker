@@ -178,3 +178,19 @@
 
 .unity-text-element {
 }
+
+.stop {
+    color: rgb(255, 120, 120);
+    border-bottom-color: rgb(255, 120, 120);
+    border-left-color: rgb(255, 120, 120);
+    border-top-color: rgb(255, 120, 120);
+    border-right-color: rgb(255, 120, 120);
+}
+
+.resume {
+    color: rgb(133, 255, 120);
+    border-left-color: rgb(133, 255, 120);
+    border-top-color: rgb(133, 255, 120);
+    border-bottom-color: rgb(133, 255, 120);
+    border-right-color: rgb(133, 255, 120);
+}

@@ -9,9 +9,9 @@
                 <ui:Button name="monthTabButton" text="Month" enabled="true" class="tab-button" style="margin-right: 0; font-size: 20%; display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="options" class="tabs" style="align-self: stretch; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
+                <ui:Button name="actionButton" text="Stop" class="tab-button stop" style="margin-right: 0; font-size: 16px; display: flex;" />
                 <ui:Button name="Reset" text="Reset" class="tab-button" style="margin-right: 0; font-size: 16px; display: flex; color: rgb(255, 120, 120);" />
                 <ui:Button name="setGoalButton" text="Set \n Goal" parse-escape-sequences="true" class="tab-button" style="margin-right: 0; font-size: 16px; display: flex;" />
-                <ui:Button name="monthTabButton" text="Month" class="tab-button" style="margin-right: 0; font-size: 20px; display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="content" class="content">

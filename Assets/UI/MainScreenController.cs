@@ -22,14 +22,15 @@ public class MainScreenController : MonoBehaviour
     public event Action<int> TimeAdjusted;
     public event Action <string,int,int>SettingsOpened;
     public event Action ExitRequested, ResetRequested;
+    public event Action ActionButtonCliked;
 
 
 
     // UI refs
     private Button dayTabButton, weekTabButton, monthTabButton;
-    private Button reset;
+    private Button reset,setGoalBtn, actionButton;
     private Label modeLabel, timeLabel;
-    private Button setGoalBtn, exitButton;
+    private Button  exitButton;
 
     // Minus (top)
     private Button sub1MinButton, sub15MinButton, sub30MinButton, sub1HrButton;
@@ -75,6 +76,8 @@ public class MainScreenController : MonoBehaviour
         add30MinButton = root.Q<Button>("add30MinButton");
         add1HrButton = root.Q<Button>("add1HrButton");
 
+        actionButton = root.Q<Button>("actionButton");
+
         //settings buttons
         reset = root.Q<Button>("Reset");
 
@@ -101,6 +104,7 @@ public class MainScreenController : MonoBehaviour
 
         if (reset != null) reset.clicked += OnReset;
 
+        if (actionButton != null) actionButton.clicked += OnActionButton;
         // Default selection
         SetActiveTab(dayTabButton, "Day");
 
@@ -131,6 +135,7 @@ public class MainScreenController : MonoBehaviour
         if (add15MinButton != null) add15MinButton.clicked -= OnAdd15Min;
         if (add30MinButton != null) add30MinButton.clicked -= OnAdd30Min;
         if (add1HrButton != null) add1HrButton.clicked -= OnAdd1Hr;
+        if (actionButton != null) actionButton.clicked -= OnActionButton;
 
         var settingsOverlay = GetComponent<SetGoalModalController>();
         if (settingsOverlay != null)
@@ -159,6 +164,25 @@ public class MainScreenController : MonoBehaviour
         }
     }
 
+    public void SetState(String state)
+    {
+        switch (state)
+        {
+            case "Running":
+                print("test");
+                actionButton.RemoveFromClassList("resume");
+                actionButton.AddToClassList("stop");
+                actionButton.text = "Stop";
+                break;
+            case "Stopped":
+                actionButton.AddToClassList("resume");
+                actionButton.RemoveFromClassList("stop");
+                actionButton.text = "Resume";
+                break;
+        }
+    }
+
+
     /* ------------ Internal ------------ */
 
     private void OnDayTabClicked() => OnTabClicked(dayTabButton, "Day");
@@ -179,6 +203,10 @@ public class MainScreenController : MonoBehaviour
     private void OnAdd1Hr() => TimeAdjusted?.Invoke(+60);
 
     private void OnReset() => ResetRequested?.Invoke();
+
+    private void OnActionButton() => ActionButtonCliked?.Invoke();
+
+    //invoke for 
 
 
     private void OnTabClicked(Button button, string label)
