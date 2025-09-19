@@ -1,0 +1,45 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SetGoalModal.uss?fileID=7433441132597879392&amp;guid=0b7fe19ec24932d4b89072357a9ac94c&amp;type=3#SetGoalModal" />
+    <ui:VisualElement name="goalModal" class="modal-overlay">
+        <ui:VisualElement name="goalScrim" class="modal-scrim" style="background-color: rgba(0, 0, 0, 0.75); top: 0; display: flex;" />
+        <ui:VisualElement name="goalCard" class="modal-card" style="width: 70%; height: 50%; min-height: auto; padding-top: 10px; padding-right: 10px; padding-left: 10px; padding-bottom: 10px; align-items: center;">
+            <ui:Label name="goalModeLabel" text="Day" class="mode-pill" style="margin-top: 0; margin-right: 0; margin-left: 0; margin-bottom: 0; width: 70%; height: 10%;" />
+            <ui:Label text="Goal Time" name="Time" class="title" style="padding-right: 0; padding-left: 0; margin-left: 0; margin-bottom: 0; margin-top: 0; margin-right: 0; align-items: center; height: 10%;" />
+            <ui:VisualElement name="selectionToggles" class="segment-row" style="flex-direction: row; justify-content: space-around; width: 40%; align-items: center; align-content: center; height: 20%;">
+                <ui:Button name="goalHoursTab" text="HH" class="seg-btn selected" style="padding-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; margin-bottom: 0; margin-top: 0;" />
+                <ui:Button name="goalMinutesTab" text="MM" class="seg-btn" style="margin-top: 0; padding-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; margin-bottom: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement class="value-row" style="flex-direction: row; display: flex; margin-top: 0; padding-top: 5px; padding-bottom: 0; width: 40%; height: 20%;">
+                <ui:Label name="goalHoursValue" text="00" class="value-pill" style="-unity-text-align: middle-center; font-size: 22px; background-color: rgb(17, 20, 25);" />
+                <ui:Label text=":" class="colon" style="-unity-text-align: middle-center;" />
+                <ui:Label name="goalMinutesValue" text="00" class="value-pill" style="-unity-text-align: middle-center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="keypad" class="pad" style="display: flex; width: 50%; margin-top: 0; padding-top: 5px; height: 100%;">
+                <ui:VisualElement name="topRow" class="pad-row" style="margin-top: 0;">
+                    <ui:Button name="goalK1" text="1" class="key" />
+                    <ui:Button name="goalK2" text="2" class="key" />
+                    <ui:Button name="goalK3" text="3" class="key" />
+                </ui:VisualElement>
+                <ui:VisualElement name="midRow" class="pad-row" style="margin-top: 0;">
+                    <ui:Button name="goalK4" text="4" class="key" />
+                    <ui:Button name="goalK5" text="5" class="key" />
+                    <ui:Button name="goalK6" text="6" class="key" />
+                </ui:VisualElement>
+                <ui:VisualElement name="bottomRow" class="pad-row" style="margin-top: 0;">
+                    <ui:Button name="goalK7" text="7" class="key" />
+                    <ui:Button name="goalK8" text="8" class="key" />
+                    <ui:Button name="goalK9" text="9" class="key" />
+                </ui:VisualElement>
+                <ui:VisualElement name="bottestRow" class="pad-row" style="margin-top: 0;">
+                    <ui:Button name="goalBackspace" text="⌫" class="key key-alt" />
+                    <ui:Button name="goalK0" text="0" class="key" />
+                    <ui:Button name="goalClear" text="C" class="key key-alt" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="actions" class="actions" style="flex-direction: row; margin-top: 0; width: 70%; justify-content: center;">
+                <ui:Button name="goalConfirmButton" text="Set Goal" class="btn btn-primary" />
+                <ui:Button name="goalCancelButton" text="Back" class="btn btn-ghost" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

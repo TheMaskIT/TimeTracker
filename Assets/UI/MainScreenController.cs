@@ -20,19 +20,23 @@ public class MainScreenController : MonoBehaviour
     // Events to expose UI interactions
     public event Action<string> TabSelected;
     public event Action<int> TimeAdjusted;
-    public event Action SettingsOpened;
+    public event Action <string,int,int>SettingsOpened;
     public event Action ExitRequested, ResetRequested;
+
+
 
     // UI refs
     private Button dayTabButton, weekTabButton, monthTabButton;
     private Button reset;
     private Label modeLabel, timeLabel;
-    private Button settingsButton, exitButton;
+    private Button setGoalBtn, exitButton;
 
     // Minus (top)
     private Button sub1MinButton, sub15MinButton, sub30MinButton, sub1HrButton;
     // Plus (bottom)
     private Button add1MinButton, add15MinButton, add30MinButton, add1HrButton;
+
+    private TemplateContainer settingsMenu;
 
     private readonly List<Button> _tabs = new();
 
@@ -43,17 +47,21 @@ public class MainScreenController : MonoBehaviour
         if (uiDocument == null) uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
+        // after you get root
+
         // Tabs
         dayTabButton = root.Q<Button>("dayTabButton");
         weekTabButton = root.Q<Button>("weekTabButton");
         monthTabButton = root.Q<Button>("monthTabButton");
         _tabs.Clear(); _tabs.AddRange(new[] { dayTabButton, weekTabButton, monthTabButton });
 
+
+
         // Labels / misc
         modeLabel = root.Q<Label>("modeLabel");
         timeLabel = root.Q<Label>("timeLabel");
 
-        settingsButton = root.Q<Button>("settingsButton");
+        setGoalBtn = root.Q<Button>("setGoalButton");
         exitButton = root.Q<Button>("exitButton");
 
         // Adjust groups
@@ -78,7 +86,7 @@ public class MainScreenController : MonoBehaviour
         if (weekTabButton != null) weekTabButton.clicked += OnWeekTabClicked;
         if (monthTabButton != null) monthTabButton.clicked += OnMonthTabClicked;
 
-        if (settingsButton != null) settingsButton.clicked += OnSettingsClicked;
+        if (setGoalBtn != null) setGoalBtn.clicked += OnSettingsClicked;
         if (exitButton != null) exitButton.clicked += OnExitClicked;
 
         if (sub1MinButton != null) sub1MinButton.clicked += OnSub1Min;
@@ -96,7 +104,12 @@ public class MainScreenController : MonoBehaviour
         // Default selection
         SetActiveTab(dayTabButton, "Day");
 
-        //settings buttons
+        var settingsOverlay = GetComponent<SetGoalModalController>();
+        if (settingsOverlay != null)
+        {
+            SettingsOpened += settingsOverlay.Show;  // open on click
+                                                     // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
+        }
 
     }
 
@@ -106,7 +119,7 @@ public class MainScreenController : MonoBehaviour
         if (weekTabButton != null) weekTabButton.clicked -= OnWeekTabClicked;
         if (monthTabButton != null) monthTabButton.clicked -= OnMonthTabClicked;
 
-        if (settingsButton != null) settingsButton.clicked -= OnSettingsClicked;
+        if (setGoalBtn != null) setGoalBtn.clicked -= OnSettingsClicked;
         if (exitButton != null) exitButton.clicked -= OnExitClicked;
 
         if (sub1MinButton != null) sub1MinButton.clicked -= OnSub1Min;
@@ -118,6 +131,13 @@ public class MainScreenController : MonoBehaviour
         if (add15MinButton != null) add15MinButton.clicked -= OnAdd15Min;
         if (add30MinButton != null) add30MinButton.clicked -= OnAdd30Min;
         if (add1HrButton != null) add1HrButton.clicked -= OnAdd1Hr;
+
+        var settingsOverlay = GetComponent<SetGoalModalController>();
+        if (settingsOverlay != null)
+        {
+            SettingsOpened -= settingsOverlay.Show;  // open on click
+                                                     // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
+        }
     }
 
     /* ------------ Public helpers ------------ */
@@ -145,7 +165,7 @@ public class MainScreenController : MonoBehaviour
     private void OnWeekTabClicked() => OnTabClicked(weekTabButton, "Week");
     private void OnMonthTabClicked() => OnTabClicked(monthTabButton, "Month");
 
-    private void OnSettingsClicked() => SettingsOpened?.Invoke();
+    private void OnSettingsClicked() => SettingsOpened.Invoke("Day",0,0);
     private void OnExitClicked() => ExitRequested?.Invoke();
 
     private void OnSub1Min() => TimeAdjusted?.Invoke(-1);
@@ -177,6 +197,7 @@ public class MainScreenController : MonoBehaviour
         if (active != null) active.AddToClassList("selected");
         if (modeLabel != null) modeLabel.text = label;
     }
+
 
     public void updateTimeDisplay(string text, float progress)
     {

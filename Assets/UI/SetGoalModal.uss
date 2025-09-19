@@ -1,0 +1,241 @@
+.modal-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-scrim {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-card {
+    position: relative;
+    width: 520px;
+    min-height: 420px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 18px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(23, 26, 31);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+
+.mode-pill {
+    align-self: center;
+    min-width: auto;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(238, 242, 246);
+    -unity-font-style: bold;
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-bottom: 6px;
+    -unity-text-align: middle-center;
+    width: 75%;
+}
+
+.title {
+    color: rgb(238, 242, 246);
+    -unity-text-align: middle-center;
+    margin-bottom: 8px;
+}
+
+.segment-row {
+    display: flex;
+    justify-content: center;
+}
+
+.seg-btn {
+    min-width: auto;
+    height: 100%;
+    color: rgb(238, 242, 246);
+    background-color: rgb(31, 35, 42);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 45%;
+}
+
+.seg-btn.selected {
+    color: rgb(0, 229, 255);
+    border-left-color: rgb(11, 186, 210);
+    border-right-color: rgb(11, 186, 210);
+    border-top-color: rgb(11, 186, 210);
+    border-bottom-color: rgb(11, 186, 210);
+}
+
+.value-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.value-pill {
+    min-width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -unity-font-style: bold;
+    font-size: 22px;
+    color: rgb(0, 229, 255);
+    background-color: rgb(17, 20, 25);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-left: 4px;
+    margin-right: 4px;
+    width: auto;
+    max-height: 10px;
+}
+
+.colon {
+    color: rgb(183, 190, 200);
+    font-size: 22px;
+}
+
+.pad {
+    align-self: center;
+    width: 320px;
+    margin-top: 10px;
+}
+
+.pad-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0;
+    height: 25%;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+}
+
+.key {
+    width: 30%;
+    height: 100%;
+    -unity-font-style: bold;
+    color: rgb(238, 242, 246);
+    background-color: rgb(31, 35, 42);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.key-alt {
+    color: rgb(255, 138, 138);
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.btn {
+    min-width: auto;
+    height: auto;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.btn-primary {
+    color: rgb(238, 242, 246);
+    background-color: rgba(0, 229, 255, 0.12);
+    border-left-color: rgb(11, 186, 210);
+    border-right-color: rgb(11, 186, 210);
+    border-top-color: rgb(11, 186, 210);
+    border-bottom-color: rgb(11, 186, 210);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.btn-ghost {
+    color: rgb(238, 242, 246);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}

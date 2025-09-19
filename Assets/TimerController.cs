@@ -16,14 +16,33 @@ public class TimerController : MonoBehaviour
     private bool running;
 
     public MainScreenController screenControler;
+    public SetGoalModalController settingsMenu;
 
     private void Start()
     {
+        //load data
+        int day = DateTime.Now.Day;
+
+        elapsed = PlayerPrefs.GetFloat("progress",0);
+        goalHours = PlayerPrefs.GetInt("goalHours", 8);
+        goalMinutes = PlayerPrefs.GetInt("goalMinutes", 0);
+        int wasDay = PlayerPrefs.GetInt("WasDate", 0);
+
+        //setup
         SetGoal(goalHours, goalMinutes);
 
         screenControler.TimeAdjusted += AdjustTime;
         screenControler.ExitRequested += Exit;
         screenControler.ResetRequested += ResetProgress;
+
+        settingsMenu.Confirmed += SetGoal;
+
+        //check if new days
+        if(wasDay != day)
+        {
+            elapsed = 0;
+            PlayerPrefs.SetInt("WasDate", day);
+        }
     }
 
     private void OnDestroy()
@@ -31,6 +50,14 @@ public class TimerController : MonoBehaviour
         screenControler.TimeAdjusted -= AdjustTime;
         screenControler.ExitRequested -= Exit;
         screenControler.ResetRequested -= ResetProgress;
+
+        
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("progress", elapsed);
+        PlayerPrefs.SetInt("WasDate", DateTime.Now.Day);
     }
 
     void Update()
@@ -48,7 +75,13 @@ public class TimerController : MonoBehaviour
 
     public void SetGoal(int hours, int minutes)
     {
+        goalHours = hours;
+        goalMinutes = minutes;
         goal = HmsToSeconds(hours, minutes,0);
+        //save
+        PlayerPrefs.SetInt("goalHours", goalHours);
+        PlayerPrefs.SetInt("goalMinutes", goalMinutes);
+
     }
 
     public float GetProgress() => (goal > 0) ? (elapsed / goal) : 1;
