@@ -4,9 +4,9 @@
     <ui:VisualElement name="mainScreen" class="main-screen amoled" style="min-width: auto; min-height: auto;">
         <ui:VisualElement name="leftMenu" class="left-menu" style="padding-left: 0; align-content: flex-start; align-items: flex-end; flex-wrap: nowrap; flex-direction: column;">
             <ui:VisualElement name="tabs" class="tabs" style="align-self: stretch; align-items: flex-end;">
-                <ui:Button name="dayTabButton" text="Day" class="tab-button selected" style="margin-right: 0; font-size: 20px;" />
-                <ui:Button name="weekTabButton" text="Week" enabled="true" class="tab-button" style="margin-right: 0; font-size: 20px; display: none;" />
-                <ui:Button name="monthTabButton" text="Month" enabled="true" class="tab-button" style="margin-right: 0; font-size: 20%; display: none;" />
+                <ui:Button name="dayTabButton" text="Day" class="tab-button selected" style="margin-right: 0;" />
+                <ui:Button name="weekTabButton" text="Week" enabled="true" class="tab-button" style="margin-right: 0; display: flex;" />
+                <ui:Button name="monthTabButton" text="Month" enabled="true" class="tab-button" style="margin-right: 0; display: flex;" />
             </ui:VisualElement>
             <ui:VisualElement name="options" class="tabs" style="align-self: stretch; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
                 <ui:Button name="actionButton" text="Stop" class="tab-button stop" style="margin-right: 0; font-size: 16px; display: flex;" />

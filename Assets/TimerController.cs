@@ -1,51 +1,45 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 public class TimerController : MonoBehaviour
 {
-    [Header("Goal (HH:MM:SS)")]
-    public int goalHours = 0;
-    public int goalMinutes = 1;
-
-    [SerializeField]
-    private float elapsed; // seconds
-    [SerializeField]
     private float goal;    // seconds
     [SerializeField]
     private bool running;
 
     public MainScreenController screenControler;
     public SetGoalModalController settingsMenu;
+    public mode[] modes;
 
     public string state = "Running";
+
+    public mode ActiveMode;
 
     private void Start()
     {
         //load data
         int day = DateTime.Now.Day;
 
-        elapsed = PlayerPrefs.GetFloat("progress",0);
-        goalHours = PlayerPrefs.GetInt("goalHours", 8);
-        goalMinutes = PlayerPrefs.GetInt("goalMinutes", 0);
-        int wasDay = PlayerPrefs.GetInt("WasDate", 0);
 
+        ActiveMode = modes[0];
         //setup
-        SetGoal(goalHours, goalMinutes);
+        SetGoal(ActiveMode.goalHours, ActiveMode.goalMinutes);
 
         screenControler.TimeAdjusted += AdjustTime;
         screenControler.ExitRequested += Exit;
         screenControler.ResetRequested += ResetProgress;
         screenControler.ActionButtonCliked += StateChange;
 
-        settingsMenu.Confirmed += SetGoal;
+        screenControler.TabSelected += SetActiveTab;
 
-        //check if new days
-        if(wasDay != day)
-        {
-            elapsed = 0;
-            PlayerPrefs.SetInt("WasDate", day);
-        }
+        settingsMenu.Confirmed += SetGoal;
+    }
+
+    private void SetActiveTab(string obj)
+    {
+        ActiveMode = modes.First(x => x.name == obj);
     }
 
     private void StateChange()
@@ -75,16 +69,18 @@ public class TimerController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetFloat("progress", elapsed);
-        PlayerPrefs.SetInt("WasDate", DateTime.Now.Day);
+       
     }
 
     void Update()
     {
-        if (!running) return; 
-        elapsed += Time.deltaTime;
+        if (!running) return;
+        for (int i = 0; i < modes.Length; i++ )
+        {
+            modes[i].elapsed += Time.deltaTime;
+        }
 
-        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress()); 
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress()); 
 
     }
 
@@ -94,18 +90,16 @@ public class TimerController : MonoBehaviour
 
     public void SetGoal(int hours, int minutes)
     {
-        goalHours = hours;
-        goalMinutes = minutes;
+        ActiveMode.goalHours = hours;
+        ActiveMode.goalMinutes = minutes;
         goal = HmsToSeconds(hours, minutes,0);
         //save
-        PlayerPrefs.SetInt("goalHours", goalHours);
-        PlayerPrefs.SetInt("goalMinutes", goalMinutes);
 
-        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress());
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());
 
     }
 
-    public float GetProgress() => (goal > 0) ? (elapsed / goal) : 1;
+    public float GetProgress() => (goal > 0) ? (ActiveMode.elapsed / goal) : 1;
 
     static float HmsToSeconds(int h, int m, int s) => (h * 3600.0f) + (m * 60.0f) + s;
 
@@ -120,10 +114,10 @@ public class TimerController : MonoBehaviour
 
     private void AdjustTime(int time) //attached to ui events will adjust timer
     {
-        elapsed += (time * 60);
-        if(elapsed < 0)
+        ActiveMode.elapsed += (time * 60);
+        if(ActiveMode.elapsed < 0)
         {
-            elapsed = 0;
+            ActiveMode.elapsed = 0;
         }
     }
 
@@ -135,8 +129,16 @@ public class TimerController : MonoBehaviour
 
     private void ResetProgress()
     {
-        elapsed = 0;
-        screenControler.updateTimeDisplay($"{FormatHMS(elapsed)}/{goalHours:00}:{goalMinutes:00}", GetProgress());
+        ActiveMode.elapsed = 0;
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());
     }
 
+    [Serializable]
+    public class mode
+    {
+        public string name;
+        public int goalHours;
+        public int goalMinutes;
+        public float elapsed;
+    }
 }
