@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TimerController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
+
         //load data
         int day = DateTime.Now.DayOfYear;
         int weekStart = DateTime.Now.AddDays(-(DateTime.Now.DayOfYear - (((int)DateTime.Now.DayOfWeek) - 1))).DayOfYear; // gets the day of year of the monday of the week 
@@ -128,6 +132,11 @@ public class TimerController : MonoBehaviour
 
     void Update()
     {
+
+        //make sure the fps is limiterd
+        if (Application.targetFrameRate != 30)
+            Application.targetFrameRate = 30;
+
         if (!running) return;
         for (int i = 0; i < save.modes.Length; i++ )
         {
@@ -135,6 +144,7 @@ public class TimerController : MonoBehaviour
         }
 
         screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress()); 
+
 
     }
 

@@ -371,19 +371,8 @@ MonoBehaviour:
   running: 1
   screenControler: {fileID: 228682937}
   settingsMenu: {fileID: 228682940}
-  modes:
-  - name: Day
-    goalHours: 8
-    goalMinutes: 0
-    elapsed: 0
-  - name: Week
-    goalHours: 50
-    goalMinutes: 0
-    elapsed: 0
-  - name: Month
-    goalHours: 200
-    goalMinutes: 0
-    elapsed: 0
+  save:
+    modes: []
   state: Running
   ActiveMode:
     name: 
