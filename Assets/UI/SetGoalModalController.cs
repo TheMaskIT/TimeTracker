@@ -120,12 +120,12 @@ public class SetGoalModalController : MonoBehaviour
     {
         if (active == Field.Hours)
         {
-            hoursBuf = ShiftAppend(hoursBuf, d);
-            hoursBuf = ClampTwoDigits(Parse(hoursBuf), 0, 99);
+            hoursBuf = ShiftAppend(hoursBuf, d,3);
+            hoursBuf = ClampTwoDigits(Parse(hoursBuf), 0, 999);
         }
         else
         {
-            minutesBuf = ShiftAppend(minutesBuf, d);
+            minutesBuf = ShiftAppend(minutesBuf, d,2);
             minutesBuf = ClampTwoDigits(Parse(minutesBuf), 0, 59);
         }
         UpdateDisplay();
@@ -133,8 +133,8 @@ public class SetGoalModalController : MonoBehaviour
 
     void Backspace()
     {
-        if (active == Field.Hours) hoursBuf = BackspaceBuf(hoursBuf);
-        else minutesBuf = BackspaceBuf(minutesBuf);
+        if (active == Field.Hours) hoursBuf = BackspaceBuf(hoursBuf,3);
+        else minutesBuf = BackspaceBuf(minutesBuf,2);
         UpdateDisplay();
     }
 
@@ -147,16 +147,16 @@ public class SetGoalModalController : MonoBehaviour
 
     /* ---------- Helpers ---------- */
 
-    static string ShiftAppend(string buf, int d)
+    static string ShiftAppend(string buf, int d, int bufL)
     {
         string s = string.IsNullOrEmpty(buf) ? "00" : buf;
-        if (s.Length < 2) s = s.PadLeft(2, '0');
+        if (s.Length < bufL) s = s.PadLeft(bufL, '0');
         return s.Substring(1) + Mathf.Clamp(d, 0, 9);
     }
-    static string BackspaceBuf(string buf)
+    static string BackspaceBuf(string buf,int bufL)
     {
         string s = string.IsNullOrEmpty(buf) ? "00" : buf;
-        if (s.Length < 2) s = s.PadLeft(2, '0');
+        if (s.Length < bufL) s = s.PadLeft(bufL, '0');
         return "0" + s.Substring(0, 1);
     }
     static string ClampTwoDigits(int val, int min, int max)

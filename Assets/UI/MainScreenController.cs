@@ -169,7 +169,6 @@ public class MainScreenController : MonoBehaviour
         switch (state)
         {
             case "Running":
-                print("test");
                 actionButton.RemoveFromClassList("resume");
                 actionButton.AddToClassList("stop");
                 actionButton.text = "Stop";

@@ -11,19 +11,34 @@ public class TimerController : MonoBehaviour
 
     public MainScreenController screenControler;
     public SetGoalModalController settingsMenu;
-    public mode[] modes;
+    public SaveData save;
+
 
     public string state = "Running";
 
     public mode ActiveMode;
 
+
     private void Start()
     {
         //load data
-        int day = DateTime.Now.Day;
+        int day = DateTime.Now.DayOfYear;
+        int weekStart = DateTime.Now.AddDays(-(DateTime.Now.DayOfYear - (((int)DateTime.Now.DayOfWeek) - 1))).DayOfYear; // gets the day of year of the monday of the week 
+        int month = DateTime.Now.Month;
 
+        save = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString("saveData",""));
+        if(save.modes.Length == 0)
+        {
+            save.modes = new mode[3];
+            save.modes[0] = new mode();
+            save.modes[0].name = "Day";
+            save.modes[1] = new mode();
+            save.modes[1].name = "Week";
+            save.modes[2] = new mode();
+            save.modes[2].name = "Month";
+        }
 
-        ActiveMode = modes[0];
+        ActiveMode = save.modes[0];
         //setup
         SetGoal(ActiveMode.goalHours, ActiveMode.goalMinutes);
 
@@ -35,11 +50,50 @@ public class TimerController : MonoBehaviour
         screenControler.TabSelected += SetActiveTab;
 
         settingsMenu.Confirmed += SetGoal;
+
+        if(PlayerPrefs.GetInt("day",0) != day)
+        {
+            save.modes[0].elapsed = 0;
+        }
+
+        if (PlayerPrefs.GetInt("week", 0) != weekStart)
+        {
+            save.modes[1].elapsed = 0;
+        }
+
+        if (PlayerPrefs.GetInt("month", 0) != month)
+        {
+            save.modes[2].elapsed = 0;
+        }
+
+        PlayerPrefs.SetInt("day", day);
+        PlayerPrefs.SetInt("week", weekStart);
+        PlayerPrefs.SetInt("month", month);
     }
 
     private void SetActiveTab(string obj)
     {
-        ActiveMode = modes.First(x => x.name == obj);
+        try
+        {
+            ActiveMode = save.modes.First(x => x.name == obj);
+            goal = HmsToSeconds(ActiveMode.goalHours, ActiveMode.goalMinutes, 0);
+        }
+        catch
+        {
+            //issue with save file wipe and make a new one
+            save.modes = new mode[3];
+
+
+            //NOTE: clean this up later make it not as hard coded
+            save.modes[0] = new mode();
+            save.modes[0].name = "Day";
+            save.modes[1] = new mode();
+            save.modes[1].name = "Week";
+            save.modes[2] = new mode();
+            save.modes[2].name = "Month";
+
+            ActiveMode = save.modes.First(x => x.name == obj);
+        }
     }
 
     private void StateChange()
@@ -69,15 +123,15 @@ public class TimerController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-       
+        PlayerPrefs.SetString("saveData",JsonUtility.ToJson(save));
     }
 
     void Update()
     {
         if (!running) return;
-        for (int i = 0; i < modes.Length; i++ )
+        for (int i = 0; i < save.modes.Length; i++ )
         {
-            modes[i].elapsed += Time.deltaTime;
+            save.modes[i].elapsed += Time.deltaTime;
         }
 
         screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress()); 
@@ -140,5 +194,19 @@ public class TimerController : MonoBehaviour
         public int goalHours;
         public int goalMinutes;
         public float elapsed;
+
+        public mode()
+        {
+            name = "";
+            goalHours = 0;
+            goalMinutes = 0;
+            elapsed = 0;
+        }
+    }
+
+    [Serializable]
+    public struct SaveData
+    {
+        public mode[] modes;
     }
 }
