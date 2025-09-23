@@ -52,7 +52,7 @@
     border-left: 3px solid transparent;
     -unity-font-style: bold;
     width: 80%;
-    font-size: 20%;
+    font-size: 16px;
 }
 
 .tab-button:hover {
@@ -129,6 +129,8 @@
     background-color: var(--panel-2);
     color: var(--text);
     width: 25%;
+    font-size: 100%;
+    -unity-font-style: bold;
 }
 
 .adjust-button.plus {
@@ -175,4 +177,20 @@
 }
 
 .unity-text-element {
+}
+
+.stop {
+    color: rgb(255, 120, 120);
+    border-bottom-color: rgb(255, 120, 120);
+    border-left-color: rgb(255, 120, 120);
+    border-top-color: rgb(255, 120, 120);
+    border-right-color: rgb(255, 120, 120);
+}
+
+.resume {
+    color: rgb(133, 255, 120);
+    border-left-color: rgb(133, 255, 120);
+    border-top-color: rgb(133, 255, 120);
+    border-bottom-color: rgb(133, 255, 120);
+    border-right-color: rgb(133, 255, 120);
 }

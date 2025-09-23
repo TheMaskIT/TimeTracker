@@ -1,16 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="SetGoalModal" src="project://database/Assets/UI/SetGoalModal.uxml?fileID=9197481963319205126&amp;guid=3862c459d20f1ce41b93b50d75996a89&amp;type=3#SetGoalModal" />
     <Style src="project://database/Assets/UI/MainScreen.uss?fileID=7433441132597879392&amp;guid=e10208f584771f54d8aa80ccb8efe13a&amp;type=3#MainScreen" />
     <ui:VisualElement name="mainScreen" class="main-screen amoled" style="min-width: auto; min-height: auto;">
         <ui:VisualElement name="leftMenu" class="left-menu" style="padding-left: 0; align-content: flex-start; align-items: flex-end; flex-wrap: nowrap; flex-direction: column;">
-            <ui:VisualElement name="tabs" class="tabs" style="align-self: stretch; align-items: flex-end;">
-                <ui:Button name="dayTabButton" text="Day" class="tab-button selected" style="margin-right: 0; font-size: 20px;" />
-                <ui:Button name="weekTabButton" text="Week" class="tab-button" style="margin-right: 0; font-size: 20px;" />
-                <ui:Button name="monthTabButton" text="Month" class="tab-button" style="margin-right: 0; font-size: 20%;" />
+            <ui:VisualElement name="tabs" class="tabs" style="align-self: stretch; align-items: flex-end; flex-direction: column-reverse;">
+                <ui:Button name="dayTabButton" text="Day" class="tab-button selected" style="margin-right: 0;" />
+                <ui:Button name="weekTabButton" text="Week" enabled="true" class="tab-button" style="margin-right: 0; display: flex;" />
+                <ui:Button name="monthTabButton" text="Month" enabled="true" class="tab-button" style="margin-right: 0; display: flex;" />
             </ui:VisualElement>
-            <ui:VisualElement name="options" class="tabs" style="align-self: stretch; align-items: flex-end;">
-                <ui:Button name="dayTabButton" text="Day" class="tab-button" style="margin-right: 0; font-size: 20px;" />
-                <ui:Button name="weekTabButton" text="Week" class="tab-button" style="margin-right: 0; font-size: 20px;" />
-                <ui:Button name="monthTabButton" text="Month" class="tab-button" style="margin-right: 0; font-size: 20px;" />
+            <ui:VisualElement name="options" class="tabs" style="align-self: stretch; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
+                <ui:Button name="actionButton" text="Stop" class="tab-button stop" style="margin-right: 0; font-size: 16px; display: flex;" />
+                <ui:Button name="Reset" text="Reset" class="tab-button" style="margin-right: 0; font-size: 16px; display: flex; color: rgb(255, 120, 120);" />
+                <ui:Button name="setGoalButton" text="Set \n Goal" parse-escape-sequences="true" class="tab-button" style="margin-right: 0; font-size: 16px; display: flex;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="content" class="content">
@@ -20,10 +21,10 @@
             </ui:VisualElement>
             <ui:VisualElement name="ringStack" class="ring-stack" style="justify-content: space-around; align-content: flex-start;">
                 <ui:VisualElement name="adjustTop" class="adjust-row minus-row">
-                    <ui:Button name="sub1MinButton" text="-1m" class="adjust-button minus" style="font-size: 20%; -unity-font-style: bold;" />
-                    <ui:Button name="sub15MinButton" text="-15m" class="adjust-button minus" style="font-size: 20%; -unity-font-style: bold;" />
-                    <ui:Button name="sub30MinButton" text="-30m" class="adjust-button minus" style="font-size: 20%;" />
-                    <ui:Button name="sub1HrButton" text="-1h" class="adjust-button minus" style="font-size: 20%;" />
+                    <ui:Button name="sub1MinButton" text="-1m" class="adjust-button minus" />
+                    <ui:Button name="sub15MinButton" text="-15m" class="adjust-button minus" />
+                    <ui:Button name="sub30MinButton" text="-30m" class="adjust-button minus" />
+                    <ui:Button name="sub1HrButton" text="-1h" class="adjust-button minus" />
                 </ui:VisualElement>
                 <ui:VisualElement name="progressRing" class="progress-ring" style="width: 200px; height: 200px; background-image: none;">
                     <ui:VisualElement name="timeDisplay" class="time-display">
@@ -32,12 +33,13 @@
                     <DonutRing inner-empty-percent="0.78" value="-0.03" clockwise="true" rounded-caps="false" start-angle="-90" name="ring" style="position: absolute; width: 100%; height: 100%;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="adjustBottom" class="adjust-row plus-row">
-                    <ui:Button name="add1MinButton" text="+1m" class="adjust-button plus" style="font-size: 20%;" />
-                    <ui:Button name="add15MinButton" text="+15m" class="adjust-button plus" style="-unity-font-style: bold; font-size: 20%;" />
-                    <ui:Button name="add30MinButton" text="+30m" class="adjust-button plus" style="font-size: 20%;" />
-                    <ui:Button name="add1HrButton" text="+1h" class="adjust-button plus" style="font-size: 20%;" />
+                    <ui:Button name="add1MinButton" text="+1m" class="adjust-button plus" />
+                    <ui:Button name="add15MinButton" text="+15m" class="adjust-button plus" />
+                    <ui:Button name="add30MinButton" text="+30m" class="adjust-button plus" />
+                    <ui:Button name="add1HrButton" text="+1h" class="adjust-button plus" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Instance template="SetGoalModal" name="settingMenu" picking-mode="Ignore" style="display: none; position: absolute; width: 100%; height: 100%;" />
 </ui:UXML>
