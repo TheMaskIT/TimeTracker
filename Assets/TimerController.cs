@@ -178,11 +178,55 @@ public class TimerController : MonoBehaviour
 
     private void AdjustTime(int time) //attached to ui events will adjust timer
     {
-        ActiveMode.elapsed += (time * 60);
-        if(ActiveMode.elapsed < 0)
+
+
+
+        if (ActiveMode.name == "Month")
         {
-            ActiveMode.elapsed = 0;
+            save.modes[2].elapsed += (time * 60);
+            if (save.modes[2].elapsed < 0)
+            {
+                save.modes[2].elapsed = 0;
+            }
         }
+
+        if (ActiveMode.name == "Week")
+        {
+            save.modes[2].elapsed += (time * 60);
+            if (save.modes[2].elapsed < 0)
+            {
+                save.modes[2].elapsed = 0;
+            }
+
+            save.modes[1].elapsed += (time * 60);
+            if (save.modes[1].elapsed < 0)
+            {
+                save.modes[1].elapsed = 0;
+            }
+        }
+
+        // realy need to clean up how i do thease
+        if (ActiveMode.name == "Day")
+        {
+            save.modes[2].elapsed += (time * 60);
+            if (save.modes[2].elapsed < 0)
+            {
+                save.modes[2].elapsed = 0;
+            }
+
+            save.modes[1].elapsed += (time * 60);
+            if (save.modes[1].elapsed < 0)
+            {
+                save.modes[1].elapsed = 0;
+            }
+
+            save.modes[0].elapsed += (time * 60);
+            if (save.modes[0].elapsed < 0)
+            {
+                save.modes[0].elapsed = 0;
+            }
+        }
+
     }
 
     private void Exit()
