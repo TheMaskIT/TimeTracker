@@ -27,7 +27,19 @@ public class TimerController : MonoBehaviour
 
         //load data
         int day = DateTime.Now.DayOfYear;
-        int weekStart = DateTime.Now.AddDays(-(DateTime.Now.DayOfYear - (((int)DateTime.Now.DayOfWeek) - 1))).DayOfYear; // gets the day of year of the monday of the week 
+        int weekStart;
+        // why the hell is sunday 0 why???
+        if ((int)DateTime.Now.DayOfWeek == 0)
+        {
+            weekStart = DateTime.Now.AddDays(-6).DayOfYear;
+        }
+        else
+        {
+            weekStart = DateTime.Now.AddDays(-((int)DateTime.Now.DayOfWeek - 1)).DayOfYear;
+        }
+
+        print(weekStart);
+        // gets the day of year of the monday of the week 
         int month = DateTime.Now.Month;
 
         save = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString("saveData",""));
@@ -97,7 +109,9 @@ public class TimerController : MonoBehaviour
             save.modes[2].name = "Month";
 
             ActiveMode = save.modes.First(x => x.name == obj);
+            
         }
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());
     }
 
     private void StateChange()
@@ -114,6 +128,7 @@ public class TimerController : MonoBehaviour
         }
 
         screenControler.SetState(state);
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());
     }
 
     private void OnDestroy()
@@ -226,6 +241,8 @@ public class TimerController : MonoBehaviour
                 save.modes[0].elapsed = 0;
             }
         }
+
+        screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());
 
     }
 
