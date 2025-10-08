@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Template name="SetGoalModal" src="project://database/Assets/UI/SetGoalModal.uxml?fileID=9197481963319205126&amp;guid=3862c459d20f1ce41b93b50d75996a89&amp;type=3#SetGoalModal" />
+    <ui:Template name="ConfermMenu" src="project://database/Assets/UI/ConfermMenu.uxml?fileID=9197481963319205126&amp;guid=d6c51658985f7db4386320b01ef3ce50&amp;type=3#ConfermMenu" />
     <Style src="project://database/Assets/UI/MainScreen.uss?fileID=7433441132597879392&amp;guid=e10208f584771f54d8aa80ccb8efe13a&amp;type=3#MainScreen" />
     <ui:VisualElement name="mainScreen" class="main-screen amoled" style="min-width: auto; min-height: auto;">
         <ui:VisualElement name="leftMenu" class="left-menu" style="padding-left: 0; align-content: flex-start; align-items: flex-end; flex-wrap: nowrap; flex-direction: column;">
@@ -42,4 +43,5 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Instance template="SetGoalModal" name="settingMenu" picking-mode="Ignore" style="display: none; position: absolute; width: 100%; height: 100%;" />
+    <ui:Instance template="ConfermMenu" name="resetMenu" picking-mode="Ignore" style="display: none; position: absolute; width: 100%; height: 100%;" />
 </ui:UXML>

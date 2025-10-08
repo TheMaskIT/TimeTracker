@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -18,6 +20,8 @@ public class TimerController : MonoBehaviour
     public string state = "Running";
 
     public mode ActiveMode;
+
+    private float saveTimer = 0; //used to save every min
 
 
     private void Start()
@@ -38,7 +42,7 @@ public class TimerController : MonoBehaviour
             weekStart = DateTime.Now.AddDays(-((int)DateTime.Now.DayOfWeek - 1)).DayOfYear;
         }
 
-        print(weekStart);
+
         // gets the day of year of the monday of the week 
         int month = DateTime.Now.Month;
 
@@ -60,7 +64,6 @@ public class TimerController : MonoBehaviour
 
         screenControler.TimeAdjusted += AdjustTime;
         screenControler.ExitRequested += Exit;
-        screenControler.ResetRequested += ResetProgress;
         screenControler.ActionButtonCliked += StateChange;
 
         screenControler.TabSelected += SetActiveTab;
@@ -160,8 +163,52 @@ public class TimerController : MonoBehaviour
 
         screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress()); 
 
+        if(saveTimer > 60)
+        {
+            print("ping");
+            saveTimer = 0;
 
+            // every min save date and check for roll overs
+            int day = DateTime.Now.DayOfYear;
+            int weekStart;
+            int month = DateTime.Now.Month;
+
+            // why the hell is sunday 0 why???
+            if ((int)DateTime.Now.DayOfWeek == 0)
+            {
+                weekStart = DateTime.Now.AddDays(-6).DayOfYear;
+            }
+            else
+            {
+                weekStart = DateTime.Now.AddDays(-((int)DateTime.Now.DayOfWeek - 1)).DayOfYear;
+            }
+
+
+            if (PlayerPrefs.GetInt("day", 0) != day)
+            {
+                save.modes[0].elapsed = 0;
+            }
+
+            if (PlayerPrefs.GetInt("week", 0) != weekStart)
+            {
+                save.modes[1].elapsed = 0;
+            }
+
+            if (PlayerPrefs.GetInt("month", 0) != month)
+            {
+                save.modes[2].elapsed = 0;
+            }
+
+
+            PlayerPrefs.SetString("saveData", JsonUtility.ToJson(save));
+        }
+        else
+        {
+            saveTimer += Time.deltaTime;
+        }
+        
     }
+
 
     public void StartTimer() { running = true; }
     public void PauseTimer() { running = false; }
@@ -252,7 +299,7 @@ public class TimerController : MonoBehaviour
         Application.Quit();
     }
 
-    private void ResetProgress()
+    public void ResetProgress()
     {
         ActiveMode.elapsed = 0;
         screenControler.updateTimeDisplay($"{FormatHMS(ActiveMode.elapsed)}/{ActiveMode.goalHours:00}:{ActiveMode.goalMinutes:00}", GetProgress());

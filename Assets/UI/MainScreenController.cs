@@ -115,6 +115,13 @@ public class MainScreenController : MonoBehaviour
                                                      // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
         }
 
+        var resetConf = GetComponent<ResetConferm>();
+        if (resetConf != null)
+        {
+            ResetRequested += resetConf.Show;  // open on click
+                                                     // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
+        }
+
     }
 
     private void OnDisable()
@@ -142,6 +149,13 @@ public class MainScreenController : MonoBehaviour
         {
             SettingsOpened -= settingsOverlay.Show;  // open on click
                                                      // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
+        }
+
+        var resetConf = GetComponent<ResetConferm>();
+        if (resetConf != null)
+        {
+            ResetRequested += resetConf.Show;  // open on click
+                                               // optional: also wire a "Back" somewhere to settingsOverlay.Hide();
         }
     }
 

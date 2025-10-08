@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SetGoalModal.uss?fileID=7433441132597879392&amp;guid=0b7fe19ec24932d4b89072357a9ac94c&amp;type=3#SetGoalModal" />
+    <ui:VisualElement name="ResetModal" class="modal-overlay">
+        <ui:VisualElement name="goalScrim" class="modal-scrim" style="background-color: rgba(0, 0, 0, 0.75); top: 0; display: flex;" />
+        <ui:VisualElement name="goalCard" class="modal-card" style="width: 70%; height: auto; min-height: auto; padding-top: 10px; padding-right: 10px; padding-left: 10px; padding-bottom: 10px; align-items: center;">
+            <ui:Label name="Confirmation" text="Confirmation" class="mode-pill" style="margin-top: 0; margin-right: 0; margin-left: 0; margin-bottom: 0; width: 70%; height: 33%; position: relative;" />
+            <ui:Label text="Are you sure you want to reset time?" name="note" class="title" style="padding-right: 0; padding-left: 0; margin-left: 0; margin-bottom: 0; margin-top: 0; margin-right: 0; align-items: center; height: 33%;" />
+            <ui:VisualElement name="actions" class="actions" style="margin-top: 0; width: 70%; justify-content: center; flex-direction: row; height: 33%;">
+                <ui:Button name="ConfirmButton" text="Reset" class="btn btn-primary" />
+                <ui:Button name="CancelButton" text="Cancel" class="btn btn-ghost" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
