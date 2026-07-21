@@ -49,7 +49,7 @@
     background-color: var(--panel-2);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    border-left: 3px solid transparent;
+    border-left-width: 3px;
     -unity-font-style: bold;
     width: 80%;
     font-size: 16px;
@@ -145,7 +145,9 @@
     width: 280px;
     height: 280px;
     border-radius: 50%;
-    border: 5px solid rgb(50, 58, 66);
+
+    border-color: rgb(50, 58, 66);
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,7 +160,9 @@
     min-height: 46px;
     background-color: rgb(12, 20, 24);
     border-radius: 14px;
-    border: 2px solid var(--accent-soft);
+
+    border-color: var(--accent-soft);
+
     display: flex;
     align-items: center;
     justify-content: center;
